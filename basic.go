@@ -118,10 +118,18 @@ func basic() {
 	// Set a pointer for writing to array
 	pointer := 31 + 4
 
+	// Create a list containing list of addresses with certain value.
+	addressBook := make([][]int, 256)
+
+	//Build the list
+	for i := 0; i < 256; i++ {
+		addressBook[i] = getAddressesWithValue(key, byte(i))
+	}
+
 	// For each byte of the file
 	for _, data := range sourceBytes {
 		// Get all the candidates of address that have a value of the byte
-		addressCandidates := getAddressesWithValue(key, data)
+		addressCandidates := addressBook[data]
 
 		// Pick a random address
 		randomAddress := addressCandidates[r.Intn(len(addressCandidates))]
